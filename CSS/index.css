@@ -142,8 +142,8 @@ nav a:hover {
 }
   
 .carousel-container {
-  width: 80%; /* Adjust to your desired width */
-  margin: 0 auto; /* Center the container horizontally */
+  width: 80%; 
+  margin: 0 auto; 
   overflow: hidden;
   position: relative;
 }
@@ -154,7 +154,7 @@ nav a:hover {
 }
 
 .carousel-slide {
-  flex: 0 0 33.33%; /* Set width for three images per slide */
+  flex: 0 0 33.33%; 
   margin-right: 10px;
 }
 
