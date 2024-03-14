@@ -23,9 +23,9 @@ function showSlide(index) {
   const maxIndex = slides.length - 1;
 
   if (index < 0) {
-    index = maxIndex; 
+    index = maxIndex; // Loop to the last slide if reachin
   } else if (index > maxIndex) {
-    index = 0; 
+    index = 0; // Loop to the first slide if reaching the end
   }
 
   carouselTrack.style.transform = `translateX(-${index * slideWidth}px)`;
@@ -44,4 +44,5 @@ setInterval(() => {
   showSlide(currentIndex + 1);
 }, 3000);
 
+// Show the first slide initially
 showSlide(currentIndex);
