@@ -1,6 +1,6 @@
 # SneakyKleen Website
 
-Welcome to the SneakKlean website repository! This website is the culmination of collaborative efforts by our team participating in the ABSA Software Development Programme under CAPACITI. SneakKlean is a platform dedicated to offering professional sneaker cleaning services to shoe enthusiasts.
+Welcome to the SneakKlean website repository! This website is the culmination of collaborative efforts by our team participating in the ABSA Software Development Programme under CAPACITI. SneakyKleen is a platform dedicated to offering professional sneaker cleaning services to shoe enthusiasts.
 
 ## About SneakyKleen
 
@@ -30,4 +30,4 @@ This project was made possible through the collaborative efforts of the followin
 
 ## Visit SneakyKleen
 
-To experience the SneakKlean website firsthand and explore our services, please visit [SneakyKleen](https://sneakykleenz.netlify.app/).
+To experience the SneakyKleen website firsthand and explore our services, please visit [SneakyKleen](https://sneakykleenz.netlify.app/).
