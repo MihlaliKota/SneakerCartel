@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/CSS/Services.css" />
+    <script src="JavaScript/scripts.js" defer></script>
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <title>Services</title>
+  </head>
+  <body style="text-align: center">
+    <h1 class="head">
+      <a href="/index.html"
+        ><span>Sn</span>eaky<span>K</span>leen<i
+          ><sub
+            ><small
+              ><small><small>The Sneaker Cartel</small></small></small
+            ></sub
+          ></i
+        ></a
+      >
+    </h1>
+    <header class="header">
+      <nav>
+        <a href="index.html"><button class="animated-button">Home</button></a>
+        <a href="About.html"><button class="animated-button">About</button></a>
+        <a href="Services.html"
+          ><button class="animated-button">Services</button></a
+        >
+        <a href="Booking.html"
+          ><button class="animated-button">Booking</button></a
+        >
+        <a href="Contact.html"
+          ><button class="animated-button">Contact</button></a
+        >
+      </nav>
+    </header>
+
+    <a id="back-to-top" href="#top">
+      <button>&uarr;</button>
+    </a>
+
+    <div>
+      <h1><u>Services</u></h1>
+      <p><b>Welcome to our services page</b></p>
+      <div class="video">
+        <img src="/Images/Untitled design (1).gif" alt="Shoe Wash" />
+        <img src="/Images/Untitled design.gif" alt="Shoe Wash" />
+        <img src="/Images/Untitled.gif" alt="Shoe Wash" />
+      </div>
+    </div>
+
+    <h3><u>The Services We Offer</u></h3>
+    <div
+      style="display: inline-block; margin-right: 10px"
+      class="serviceBox"
+      data-service="Basic Clean"
+    >
+      <div class="image-container">
+        <img
+          src="Images/basic clean.jpeg"
+          alt="basic cleaning"
+          class="image-box"
+        />
+      </div>
+      <div class="info">
+        <h2><strong>Basic Clean</strong></h2>
+      </div>
+    </div>
+    <div
+      style="display: inline-block; margin-right: 10px"
+      class="serviceBox"
+      data-service="Deep Clean"
+    >
+      <div class="image-container">
+        <img
+          src="Images/deep clean.jpeg"
+          alt="deep cleaning"
+          class="image-box"
+        />
+      </div>
+      <div class="info">
+        <h2><strong>Deep Clean</strong></h2>
+      </div>
+    </div>
+    <div
+      style="display: inline-block; margin-right: 10px"
+      class="serviceBox"
+      data-service="Stain Removal"
+    >
+      <div class="image-container">
+        <img
+          src="Images/stain removal.jpeg"
+          alt="Stain Removal"
+          class="image-box"
+        />
+      </div>
+      <div class="info">
+        <h2><strong>Stain Removal</strong></h2>
+      </div>
+    </div>
+    <div
+      style="display: inline-block; margin-right: 10px"
+      class="serviceBox"
+      data-service="Waterproofing"
+    >
+      <div class="image-container">
+        <img
+          src="Images/waterproof.jpeg"
+          alt="Waterproofing"
+          class="image-box"
+        />
+      </div>
+      <div class="info">
+        <h2><strong>Waterproofing</strong></h2>
+      </div>
+    </div>
+
+    <br />
+    <br />
+
+    <footer>
+      <p><u>Interact with us and visit our socials:</u></p>
+
+      <br />
+      <span class="home-sci">
+        <a href="https://www.facebook.com/login.php/"
+          ><i class="bx bxl-facebook"></i
+        ></a>
+        <a href="https://twitter.com/?lang=en-za"
+          ><i class="bx bxl-twitter"></i
+        ></a>
+        <a href="https://www.instagram.com/?hl=en"
+          ><i class="bx bxl-instagram"></i
+        ></a>
+      </span>
+      <p>&copy; 2024 SneakyKleen. All rights are reserved.</p>
+    </footer>
+
+    <script>
+      // Select all elements on the page with the class "serviceBox"
+      const serviceBoxes = document.querySelectorAll(".serviceBox");
+
+      // Loop through each serviceBox element
+      serviceBoxes.forEach((box) => {
+        // Add a click event listener to each serviceBox
+        box.addEventListener("click", () => {
+          // Check if the clicked serviceBox has the "expanded" class
+          if (box.classList.contains("expanded")) {
+            // If it does, remove the "expanded" class
+            box.classList.remove("expanded");
+            // Reset the content of the .info element to just display the service name
+            box.querySelector(".info").innerHTML = ` <h2><strong>${
+              box.dataset.service || ""
+            }</strong></h2>`;
+          } else {
+            // If the clicked serviceBox does not have the "expanded" class
+            // Remove the "expanded" class from all other serviceBoxes
+            serviceBoxes.forEach((b) => b.classList.remove("expanded"));
+            // Add the "expanded" class to the clicked serviceBox
+            box.classList.add("expanded");
+            // Get the value of the data-service attribute from the clicked serviceBox
+            const service = box.dataset.service;
+            // Declare a variable to store the new content for the expanded serviceBox
+            let newContent;
+            // Use a switch statement to determine the new content based on the service
+            switch (service) {
+              case "Basic Clean":
+                newContent = `
+            <p style="text-align: center;">Basic Clean Service Details:</p>
+            <ul style="list-style: none;">
+              <li>Gentle cleaning of the shoes</li>
+              <li>Upper, midsole, and outsole cleaning</li>
+              <li>Our cheapest service option</li>
+            </ul>
+            <p>Prices:</p>
+            <ul style="list-style: none;">
+              <li>Leather: 150 ZAR</li>
+              <li>Suede: 180 ZAR</li>
+              <li>Knit: 120 ZAR</li>
+              <li>Canvas: 100 ZAR</li>
+              <li>Synthetic: 80 ZAR</li>
+              <li>Mesh: 80 ZAR</li>
+              <li>Rubber: 60 ZAR</li>
+            </ul>
+          `;
+                break;
+              case "Deep Clean":
+                // If the service is "Deep Clean", set the new content to the provided HTML
+                newContent = ` <p>Deep Clean Service Details:</p> <ul style="list-style: none;"> <li>Thorough cleaning of all parts</li> <li>Includes hard-to-reach areas and stains</li> <li>More comprehensive cleaning</li> </ul> <p>Prices:</p>
+            <ul style="list-style: none;">
+              <li>Leather: 200 ZAR</li>
+              <li>Suede: 230 ZAR</li>
+              <li>Knit: 170 ZAR</li>
+              <li>Canvas: 150 ZAR</li>
+              <li>Synthetic: 130 ZAR</li>
+              <li>Mesh: 130 ZAR</li>
+              <li>Rubber: 110 ZAR</li>
+            </ul>`;
+                break;
+              case "Stain Removal":
+                // If the service is "Stain Removal", set the new content to the provided HTML
+                newContent = ` <p>Stain Removal Service Details:</p> <ul style="list-style: none;"> <li>Specialized in removing tough stains</li> <li>Effective on dirt, mud, and grass stains</li> <li>Restores sneakers to pristine condition</li> </ul> <p>Prices:</p>
+            <ul style="list-style: none;">
+              <li>Leather: 250 ZAR</li>
+              <li>Suede: 280 ZAR</li>
+              <li>Knit: 220 ZAR</li>
+              <li>Canvas: 200 ZAR</li>
+              <li>Synthetic: 180 ZAR</li>
+              <li>Mesh: 180 ZAR</li>
+              <li>Rubber: 160 ZAR</li>
+            </ul>`;
+                break;
+              case "Waterproofing":
+                // If the service is "Waterproofing", set the new content to the provided HTML
+                newContent = ` <p>Waterproofing Service Details:</p> <ul style="list-style: none;"> <li>Protects sneakers from water damage</li> <li>Waterproofing treatment applied</li> <li>Keeps sneakers looking fresh</li> </ul> <p>Prices:</p>
+            <ul style="list-style: none;">
+              <li>Leather: 210 ZAR</li>
+              <li>Suede: 240 ZAR</li>
+              <li>Knit: 180 ZAR</li>
+              <li>Canvas: 160 ZAR</li>
+              <li>Synthetic: 140 ZAR</li>
+              <li>Mesh: 140 ZAR</li>
+              <li>Rubber: 120 ZAR</li>
+            </ul>`;
+                break;
+              default:
+                // If the service does not match any of the cases, set the new content to a default message
+                newContent = "<p>No additional details available.</p>";
+            }
+            // Update the content of the .info element with the new content
+            box.querySelector(".info").innerHTML = newContent;
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
