@@ -172,3 +172,37 @@ nav a:hover {
     opacity: 0,5;
     cursor: pointer;
 }
+.promotions {
+    padding: 40px 20px;
+    background-color: #FFDBA2;
+  }
+  
+  .promotion-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+  
+  .promotion {
+    text-align: center;
+    padding: 20px;
+    background-color:#AA7D49;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+  }
+  
+  .promotion h4 {
+    color: #FFDBA2;
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  .promotions h3{
+    font-size: 22px;
+  }
+  
+  .promotion p {
+    color: #FFDBA2;
+    font-size: 18px;
+  }
+  
