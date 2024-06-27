@@ -49,9 +49,9 @@
       <br />
       <p>To book a shoe cleaning please fill this form out:</p>
 
-      <form class="form">
+      <form class="form" id="bookingForm" onsubmit="handleFormSubmit(event)">
         <div class="form-group">
-          <label for="firstName">Full Name:</label>
+          <label for="fullName">Full Name:</label>
           <input
             type="text"
             id="fullName"
@@ -59,6 +59,9 @@
             required
             placeholder="John Doe"
           />
+          <div id="name-error" class="error-message">
+            Please enter a valid full name (only alphabets).
+          </div>
         </div>
 
         <div class="form-group form-row">
@@ -81,6 +84,9 @@
               required
               placeholder="083-XXX-XXXX"
             />
+            <div id="phone-error" class="error-message">
+              Please enter a valid phone number (10 digits, starting with 0).
+            </div>
           </div>
         </div>
 
@@ -128,17 +134,27 @@
           <div class="form-field">
             <label for="dropoff_date">Preferred Drop-off Date:</label>
             <input type="date" id="dropoff_date" name="dropoff_date" required />
+            <div id="date-error" class="error-message">
+              Please select a valid date (tomorrow or later).
+            </div>
           </div>
           <div class="form-field">
             <label for="dropoff_time">Preferred Drop-off Time:</label>
             <input type="time" id="dropoff_time" name="dropoff_time" required />
+            <div id="time-error" class="error-message">
+              Please select a time between 08:00 and 21:00.
+            </div>
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group form-field" style="margin-left: 50px">
             <label for="dropoff_location">Preferred Drop-off Location:</label>
-            <select name="dropoff_location" id="dropoff_location" required>
+            <select
+              name="dropoff_location"
+              id="dropoff_location"
+              required
+            >
               <option value="">Select...</option>
               <option value="cape_town_cbd">Cape Town CBD</option>
               <option value="claremont">Claremont</option>
@@ -148,6 +164,8 @@
             </select>
           </div>
         </div>
+
+      
 
         <div class="buttons">
           <input type="submit" value="Submit Booking" />
@@ -189,44 +207,31 @@
       <p>&copy; 2024 SneakyKleen. All rights are reserved.</p>
     </footer>
 
-    <!-- Payment Popup -->
-    <div class="popup-overlay" id="popupOverlay"></div>
-    <div class="popup" id="paymentPopup">
-      <h2>Payment Details</h2>
-      <form id="paymentForm">
-        <label for="cardName">Cardholder Name:</label>
-        <input type="text" id="cardName" name="cardName" required /><br /><br />
-        <label for="cardNumber">Card Number:</label>
-        <input
-          type="text"
-          id="cardNumber"
-          name="cardNumber"
-          required
-        /><br /><br />
-        <label for="expiryDate">Expiry Date:</label>
-        <input
-          type="text"
-          id="expiryDate"
-          name="expiryDate"
-          placeholder="MM/YY"
-          required
-        /><br /><br />
-        <label for="cvv">CVV:</label>
-        <input type="text" id="cvv" name="cvv" required /><br /><br />
-        <button type="button" onclick="processPayment()">Pay</button>
-      </form>
-    </div>
-
+     <!-- Payment Popup -->
+     <div class="popup-overlay" id="popupOverlay"></div>
+     <div class="popup" id="paymentPopup">
+         <h2>Payment Details</h2>
+         <form id="paymentForm">
+             <label for="cardName">Cardholder Name:</label>
+             <input type="text" id="cardName" name="cardName" required /><br /><br />
+             <label for="cardNumber">Card Number:</label>
+             <input type="text" id="cardNumber" name="cardNumber" required /><br /><br />
+             <label for="expiryDate">Expiry Date:</label>
+             <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" required /><br /><br />
+             <label for="cvv">CVV:</label>
+             <input type="text" id="cvv" name="cvv" required /><br /><br />
+             <button type="button" onclick="processPayment()">Pay</button>
+         </form>
+     </div>
+ 
     <!-- Confirmation Popup -->
     <div class="popup" id="confirmationPopup">
       <h2>Booking Confirmed</h2>
       <p>Your booking has been confirmed.</p>
       <p>Order Number: <span id="orderNumber"></span></p>
-      <button class="close-btn" onclick="closeConfirmationPopup()">
-        Close
-      </button>
-    </div>
-
+      <button class="close-btn" onclick="closeConfirmationPopup()">Close</button>
+  </div>
+ 
     <script>
       const services = {};
       const fullCostInput = document.getElementById("fullCost");
@@ -251,6 +256,15 @@
           calculateTotal();
         }
       }
+      function togglePaymentPopup(radio) {
+  if (radio.value === 'cash') {
+    alert('Please prepare cash for payment upon drop-off.');
+  } else if (radio.value === 'visa') {
+    alert('You will be redirected to Visa payment gateway.');
+  } else if (radio.value === 'eft') {
+    alert('EFT details will be sent to your email shortly.');
+  }
+}
 
       function addService() {
         if (!currentShoeType) {
@@ -390,6 +404,106 @@
           event.preventDefault();
           removeService();
         });
-    </script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const dateInput = document.getElementById('dropoff_date');
+            const timeInput = document.getElementById('dropoff_time');
+            const dateError = document.getElementById('date-error');
+            const timeError = document.getElementById('time-error');
+
+            // Set the minimum date to tomorrow
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            dateInput.min = tomorrow.toISOString().split('T')[0];
+
+            // Validate the date input
+            dateInput.addEventListener('change', function() {
+                if (new Date(dateInput.value) < tomorrow) {
+                    dateError.style.display = 'block';
+                    dateInput.value = '';
+                } else {
+                    dateError.style.display = 'none';
+                }
+            });
+
+            // Validate the time input
+            timeInput.addEventListener('change', function() {
+                const timeValue = timeInput.value;
+                const timeParts = timeValue.split(':');
+                const hours = parseInt(timeParts[0], 10);
+
+                if (hours < 8 || hours > 20 || (hours === 20 && parseInt(timeParts[1], 10) > 0)) {
+                    timeError.style.display = 'block';
+                    timeInput.value = '';
+                } else {
+                    timeError.style.display = 'none';
+                }
+            });
+        });
+    </script> 
+     <script>
+      document.getElementById('cardNumber').addEventListener('input', function (e) {
+          let value = e.target.value.replace(/\D/g, '');
+          if (value.length > 16) value = value.slice(0, 16);
+          e.target.value = value.replace(/(\d{4})(?=\d)/g, '$1-');
+      });
+
+      document.getElementById('expiryDate').addEventListener('input', function (e) {
+          let value = e.target.value.replace(/\D/g, '');
+          if (value.length > 4) value = value.slice(0, 4);
+          if (value.length > 2) {
+              value = value.slice(0, 2) + '/' + value.slice(2);
+          }
+          e.target.value = value;
+      });
+
+      document.getElementById('cvv').addEventListener('input', function (e) {
+          let value = e.target.value.replace(/\D/g, '');
+          if (value.length > 3) value = value.slice(0, 3);
+          e.target.value = value;
+      });
+
+      function closeConfirmationPopup() {
+          document.getElementById("confirmationPopup").style.display = "none";
+          window.location.reload();
+      }
+
+      function processPayment() {
+          const cardNumber = document.getElementById("cardNumber").value.replace(/-/g, '');
+          const cardName = document.getElementById("cardName").value;
+          const expiryDate = document.getElementById("expiryDate").value;
+          const cvv = document.getElementById("cvv").value;
+
+          if (!/^\d{16}$/.test(cardNumber)) {
+              alert("Card number must be 16 digits.");
+              return;
+          }
+          if (!/^[A-Za-z\s]+$/.test(cardName)) {
+              alert("Cardholder name must contain only letters and spaces.");
+              return;
+          }
+          if (!/^\d{2}\/\d{2}$/.test(expiryDate)) {
+              alert("Expiry date must be in MM/YY format.");
+              return;
+          }
+          if (!/^\d{3}$/.test(cvv)) {
+              alert("CVV must be 3 digits.");
+              return;
+          }
+
+          // Simulate payment processing
+          setTimeout(() => {
+              document.getElementById("paymentPopup").style.display = "none";
+              showConfirmationPopup();
+          }, 1000);
+      }
+
+      function showConfirmationPopup() {
+          const orderNumber = Math.floor(Math.random() * 9000000000) + 1000000000; // Generate random 10-digit order number
+          document.getElementById("orderNumber").innerText = orderNumber;
+          document.getElementById("confirmationPopup").style.display = "block";
+      }
+  </script>
   </body>
 </html>
